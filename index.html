@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martín Herrera | Asesor Financiero Independiente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#B8860B;
+    --blue-deep:#96700a;
+    --ink:#f3f1ea;
+    --ink-soft:#adaaa1;
+    --paper:#121212;
+    --paper-alt:#1a1a1a;
+    --deep:#020202;
+    --line:#2c2c2c;
+    --tint:rgba(184,134,11,.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.serif{
+    font-family:'Playfair Display',Georgia,serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img,svg{display:block;max-width:100%;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .8s cubic-bezier(.16,.8,.32,1), transform .8s cubic-bezier(.16,.8,.32,1);
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}
+  .reveal-delay-2{transition-delay:.22s;}
+  .reveal-delay-3{transition-delay:.34s;}
+  .reveal-delay-4{transition-delay:.46s;}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    background:rgba(18,18,18,.82);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.5);}
+
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:76px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:.01em;
+  }
+  .brand-mark{
+    width:36px;height:36px;
+    border-radius:50%;
+    background:var(--blue);
+    color:#111;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;
+    font-size:14px;
+    font-weight:600;
+    position:relative;
+  }
+  .brand-mark::after{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border:1px solid rgba(243,241,234,.25);
+    border-radius:50%;
+    opacity:.5;
+  }
+  .brand small{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:10.5px;
+    font-weight:500;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:1px;
+  }
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:38px;
+  }
+  .nav-links a{
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--ink-soft);
+    position:relative;
+    padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:-2px;
+    height:1.5px;
+    background:var(--blue);
+    transform:scaleX(0);
+    transform-origin:right;
+    transition:transform .3s ease;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{transform:scaleX(1);transform-origin:left;}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:12px 24px;
+    border-radius:2px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--blue);
+    color:#161616;
+  }
+  .btn-primary:hover{
+    background:var(--blue-deep);
+    box-shadow:0 10px 24px -8px rgba(184,134,11,.45);
+    transform:translateY(-1px);
+  }
+  .btn-outline{
+    background:transparent;
+    border-color:var(--ink);
+    color:var(--ink);
+  }
+  .btn-outline:hover{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .nav-cta{display:none;}
+  @media (min-width:900px){ .nav-cta{display:inline-flex;} }
+
+  .burger{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    background:none;border:none;
+    cursor:pointer;
+    padding:8px;
+  }
+  .burger span{width:22px;height:1.5px;background:var(--ink);display:block;}
+  @media (min-width:900px){ .burger{display:none;} }
+
+  .mobile-menu{
+    display:none;
+    flex-direction:column;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    padding:8px 32px 24px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+    font-weight:500;
+  }
+  .mobile-menu .btn{margin-top:16px;justify-content:center;}
+  @media (min-width:900px){ .mobile-menu{display:none !important;} }
+  @media (min-width:900px){ .nav-links{display:flex;} }
+  @media (max-width:899px){ .nav-links{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:172px 0 120px;
+    background:
+      radial-gradient(ellipse 900px 500px at 82% -10%, var(--tint) 0%, transparent 60%);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding:140px 0 80px;}
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue);
+    margin-bottom:26px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;height:1px;
+    background:var(--blue);
+  }
+
+  .hero h1{
+    font-size:clamp(38px,5.4vw,64px);
+    line-height:1.06;
+    color:var(--ink);
+    max-width:640px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--blue);
+  }
+
+  .hero p.lead{
+    margin-top:26px;
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:480px;
+    line-height:1.7;
+  }
+
+  .hero-actions{
+    margin-top:40px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .hero-stats{
+    margin-top:56px;
+    display:flex;
+    gap:44px;
+    flex-wrap:wrap;
+  }
+  .hero-stats .stat b{
+    display:block;
+    font-family:'Playfair Display',serif;
+    font-size:30px;
+    font-weight:600;
+  }
+  .hero-stats .stat span{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:.03em;
+  }
+
+  /* signature chart */
+  .chart-panel{
+    position:relative;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:28px 24px 20px;
+    box-shadow:0 30px 70px -30px rgba(10,10,10,.16);
+  }
+  .chart-panel .panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:6px;
+  }
+  .chart-panel .panel-head .serif{font-size:15px;font-weight:600;}
+  .chart-panel .panel-head .delta{
+    font-size:13px;
+    font-weight:600;
+    color:var(--blue);
+  }
+  .chart-panel .panel-sub{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+
+  #chartSvg path.chart-line{
+    fill:none;
+    stroke:var(--blue);
+    stroke-width:2.2;
+    stroke-linecap:round;
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    transition:stroke-dashoffset 1.8s cubic-bezier(.16,.8,.32,1);
+  }
+  #chartSvg.in path.chart-line{stroke-dashoffset:0;}
+  #chartSvg path.chart-fill{fill:url(#chartGradient);opacity:0;transition:opacity 1s ease .6s;}
+  #chartSvg.in path.chart-fill{opacity:1;}
+  #chartSvg .chart-grid line{stroke:var(--line);stroke-width:1;}
+  #chartSvg .chart-dot{
+    fill:var(--blue);
+    opacity:0;
+    transform-origin:center;
+    transition:opacity .4s ease 1.7s;
+  }
+  #chartSvg.in .chart-dot{opacity:1;}
+
+  .chart-legend{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+    font-size:11px;
+    color:var(--ink-soft);
+    letter-spacing:.02em;
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:110px 0;}
+  .section-alt{background:var(--paper-alt);}
+
+  .section-head{
+    max-width:640px;
+    margin-bottom:64px;
+  }
+  .section-head .eyebrow{margin-bottom:18px;}
+  .section-head h2{
+    font-size:clamp(28px,3.6vw,42px);
+    line-height:1.16;
+  }
+  .section-head p{
+    margin-top:18px;
+    font-size:16.5px;
+    color:var(--ink-soft);
+    max-width:520px;
+  }
+
+  /* ---------- trayectoria ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:.82fr 1.18fr;
+    gap:70px;
+    align-items:flex-start;
+  }
+  @media (max-width:900px){ .about-grid{grid-template-columns:1fr;gap:48px;} }
+
+  .avatar-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:40px 30px 34px;
+  }
+  .avatar-ring{
+    width:150px;height:150px;
+    margin-bottom:22px;
+  }
+  .avatar-card h3{font-size:21px;}
+  .avatar-card .role{
+    font-size:13px;
+    color:var(--blue);
+    font-weight:600;
+    letter-spacing:.03em;
+    margin-top:6px;
+  }
+  .avatar-card .matricula{
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    font-size:12.5px;
+    color:var(--ink-soft);
+    width:100%;
+  }
+
+  .about-copy p{
+    font-size:16.5px;
+    color:var(--ink-soft);
+    margin-bottom:20px;
+    max-width:580px;
+  }
+  .about-copy p strong{color:var(--ink);font-weight:600;}
+
+  .credentials{
+    margin-top:38px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);
+  }
+  @media (max-width:640px){ .credentials{grid-template-columns:1fr;} }
+  .credentials li{
+    padding:22px 22px 22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .credentials li:not(:last-child){border-right:1px solid var(--line);}
+  @media (max-width:640px){ .credentials li:not(:last-child){border-right:none;} }
+  .credentials b{
+    display:block;
+    font-family:'Playfair Display',serif;
+    font-size:24px;
+    color:var(--blue);
+    margin-bottom:4px;
+  }
+  .credentials span{font-size:13px;color:var(--ink-soft);}
+
+  /* ---------- servicios ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:960px){ .services-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .services-grid{grid-template-columns:1fr;} }
+
+  .service-card{
+    background:var(--paper);
+    padding:40px 30px;
+    transition:background .3s ease;
+  }
+  .service-card:hover{background:var(--paper-alt);}
+  .service-card .icon{
+    width:46px;height:46px;
+    margin-bottom:26px;
+    color:var(--blue);
+  }
+  .service-card .num{
+    font-size:11px;
+    letter-spacing:.14em;
+    color:#a9abb8;
+    font-weight:600;
+    margin-bottom:10px;
+    display:block;
+  }
+  .service-card h3{
+    font-size:19px;
+    margin-bottom:12px;
+  }
+  .service-card p{
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- por que elegirme ---------- */
+  .reasons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+    background:var(--line);
+  }
+  @media (max-width:860px){ .reasons{grid-template-columns:1fr;} }
+
+  .reason-card{
+    background:var(--deep);
+    color:#fff;
+    padding:52px 38px;
+    position:relative;
+  }
+  .reason-card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;
+    width:34px;height:2px;
+    background:var(--blue);
+  }
+  .reason-card h3{
+    font-size:21px;
+    color:#fff;
+    margin:26px 0 14px;
+  }
+  .reason-card p{
+    font-size:14.5px;
+    color:#c7c8d4;
+    line-height:1.7;
+  }
+  .reason-icon{
+    width:38px;height:38px;
+    color:var(--blue);
+  }
+
+  /* ---------- contacto ---------- */
+  .contact-panel{
+    background:var(--deep);
+    color:#fff;
+    border:1px solid var(--line);
+    padding:80px 60px;
+    position:relative;
+    overflow:hidden;
+  }
+  @media (max-width:700px){ .contact-panel{padding:56px 28px;} }
+  .contact-panel::after{
+    content:"";
+    position:absolute;
+    right:-120px;top:-120px;
+    width:340px;height:340px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:56px;
+    position:relative;
+    z-index:1;
+  }
+  @media (max-width:820px){ .contact-grid{grid-template-columns:1fr;} }
+
+  .contact-panel h2{
+    color:#fff;
+    font-size:clamp(28px,3.4vw,38px);
+    line-height:1.2;
+    max-width:460px;
+  }
+  .contact-panel .lead{
+    margin-top:18px;
+    color:#c7c8d4;
+    font-size:15.5px;
+    max-width:420px;
+  }
+
+  .contact-actions{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:36px;
+  }
+  .contact-btn{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:18px 22px;
+    border:1px solid rgba(255,255,255,.18);
+    color:#fff;
+    font-size:14.5px;
+    font-weight:600;
+    transition:border-color .25s ease, background .25s ease, transform .25s ease;
+  }
+  .contact-btn:hover{
+    border-color:var(--blue);
+    background:rgba(184,134,11,.14);
+    transform:translateX(4px);
+  }
+  .contact-btn .ico{
+    width:22px;height:22px;
+    color:var(--blue);
+    flex-shrink:0;
+  }
+  .contact-btn small{
+    display:block;
+    color:#9294a6;
+    font-weight:500;
+    font-size:11.5px;
+    margin-top:2px;
+  }
+
+  .contact-details{
+    border-left:1px solid rgba(255,255,255,.14);
+    padding-left:44px;
+  }
+  @media (max-width:820px){ .contact-details{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.14);padding-top:36px;} }
+  .contact-details dl{display:grid;gap:22px;}
+  .contact-details dt{
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#9294a6;
+    margin-bottom:6px;
+  }
+  .contact-details dd{font-size:16px;font-family:'Playfair Display',serif;}
+
+  /* ---------- footer ---------- */
+  footer{
+    padding:36px 0;
+    border-top:1px solid var(--line);
+  }
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+  }
+  .footer-row .brand{font-size:15.5px;}
+  .footer-row .brand-mark{width:28px;height:28px;font-size:11px;}
+  .footer-links{
+    display:flex;
+    gap:28px;
+  }
+  .footer-links a{
+    font-size:13px;
+    color:var(--ink-soft);
+    transition:color .2s ease;
+  }
+  .footer-links a:hover{color:var(--blue);}
+  .footer-fine{
+    font-size:12.5px;
+    color:#9698a6;
+  }
+
+  ::selection{background:var(--blue);color:#161616;}
+
+  :focus-visible{
+    outline:2px solid var(--blue);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <span class="brand-mark">MH</span>
+      <span>
+        Martín Herrera
+        <small>Asesor Financiero</small>
+      </span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#trayectoria">Trayectoria</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#elegirme">Por qué elegirme</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a href="#contacto" class="btn btn-primary nav-cta">Agendar consulta</a>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#trayectoria">Trayectoria</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#elegirme">Por qué elegirme</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#contacto" class="btn btn-primary">Agendar consulta</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow reveal in">Asesoría financiera independiente</span>
+        <h1 class="reveal in">Decisiones financieras con <em>criterio</em>, no con moda.</h1>
+        <p class="lead reveal in reveal-delay-1">
+          Doce años diseñando estrategias de inversión y planificación patrimonial para personas y empresas que buscan crecer con orden, no con improvisación.
+        </p>
+        <div class="hero-actions reveal in reveal-delay-2">
+          <a href="#contacto" class="btn btn-primary">Agendar una consulta</a>
+          <a href="#trayectoria" class="btn btn-outline">Conocer mi trayectoria</a>
+        </div>
+
+        <div class="hero-stats reveal in reveal-delay-3">
+          <div class="stat">
+            <b>12+</b>
+            <span>Años en el sector financiero</span>
+          </div>
+          <div class="stat">
+            <b>Ex&nbsp;Banco&nbsp;Galicia</b>
+            <span>Formación en banca privada</span>
+          </div>
+          <div class="stat">
+            <b>AR&nbsp;/&nbsp;Exterior</b>
+            <span>Inversiones locales e internacionales</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal in reveal-delay-2">
+        <div class="chart-panel">
+          <div class="panel-head">
+            <span class="serif">Evolución de cartera</span>
+            <span class="delta">+18,4%</span>
+          </div>
+          <p class="panel-sub">Rendimiento simulado a 5 años — cartera diversificada</p>
+          <svg id="chartSvg" viewBox="0 0 340 150" width="100%" height="150" aria-hidden="true">
+            <defs>
+              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#B8860B" stop-opacity="0.16"/>
+                <stop offset="100%" stop-color="#B8860B" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g class="chart-grid">
+              <line x1="0" y1="20" x2="340" y2="20"/>
+              <line x1="0" y1="60" x2="340" y2="60"/>
+              <line x1="0" y1="100" x2="340" y2="100"/>
+              <line x1="0" y1="140" x2="340" y2="140"/>
+            </g>
+            <path class="chart-fill" d="M0,120 L34,110 L68,118 L102,90 L136,96 L170,66 L204,74 L238,44 L272,52 L306,22 L340,28 L340,150 L0,150 Z"/>
+            <path class="chart-line" d="M0,120 L34,110 L68,118 L102,90 L136,96 L170,66 L204,74 L238,44 L272,52 L306,22 L340,28"/>
+            <circle class="chart-dot" cx="340" cy="28" r="4"/>
+          </svg>
+          <div class="chart-legend">
+            <span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAYECTORIA -->
+  <section id="trayectoria">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Quién es Martín</span>
+        <h2>Trayectoria construida en banca privada y consultoría independiente.</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="avatar-card">
+            <svg class="avatar-ring" viewBox="0 0 150 150" aria-hidden="true">
+              <circle cx="75" cy="75" r="73" fill="#1a1a1a" stroke="#2c2c2c" stroke-width="1"/>
+              <circle cx="75" cy="75" r="73" fill="none" stroke="#B8860B" stroke-width="1.4" stroke-dasharray="4 6" opacity="0.55"/>
+              <circle cx="75" cy="58" r="24" fill="#4a463c"/>
+              <path d="M30,132 C30,100 52,88 75,88 C98,88 120,100 120,132 Z" fill="#4a463c"/>
+              <circle cx="75" cy="58" r="24" fill="none" stroke="#B8860B" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <h3 class="serif">Martín Herrera</h3>
+            <span class="role">Asesor Financiero Independiente</span>
+            <div class="matricula">
+              12 años en el sector financiero · Ex Banco Galicia<br>
+              Mendoza, Argentina
+            </div>
+          </div>
+        </div>
+
+        <div class="about-copy reveal reveal-delay-1">
+          <p>
+            <strong>Martín Herrera</strong> es asesor financiero independiente con más de <strong>12 años de experiencia</strong> en el sector, formado en banca privada durante su paso por <strong>Banco Galicia</strong>, donde acompañó a clientes particulares y empresas en decisiones de inversión, crédito y planificación patrimonial.
+          </p>
+          <p>
+            Hoy trabaja de forma independiente para ofrecer un asesoramiento sin conflictos de interés institucionales: cada estrategia se diseña según los objetivos, el horizonte temporal y la tolerancia al riesgo de cada cliente, con seguimiento activo de cartera y actualización permanente frente al contexto económico argentino e internacional.
+          </p>
+          <p>
+            Su enfoque combina el rigor técnico de la banca tradicional con la cercanía y flexibilidad de una consultoría personalizada, tanto para personas que buscan ordenar sus finanzas como para pequeñas y medianas empresas que necesitan una mirada financiera externa y objetiva.
+          </p>
+
+          <ul class="credentials">
+            <li>
+              <b>12</b>
+              <span>Años de experiencia en el sector financiero</span>
+            </li>
+            <li>
+              <b>BG</b>
+              <span>Formación en Banco Galicia, banca privada</span>
+            </li>
+            <li>
+              <b>AR/EXT</b>
+              <span>Inversiones en Argentina y en el exterior</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="section-alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Servicios</span>
+        <h2>Un acompañamiento financiero integral, a medida de cada objetivo.</h2>
+        <p>Cuatro líneas de trabajo diseñadas para personas y empresas que buscan claridad y estrategia, no recetas genéricas.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <span class="num">01</span>
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="8" y="6" width="32" height="36" rx="2"/>
+            <path d="M16 16h16M16 24h16M16 32h9"/>
+          </svg>
+          <h3>Planificación financiera personal</h3>
+          <p>Diagnóstico integral de tu situación económica y diseño de un plan claro para ahorrar, invertir y alcanzar tus metas de mediano y largo plazo.</p>
+        </div>
+
+        <div class="service-card">
+          <span class="num">02</span>
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 40 16 26 24 32 42 10"/>
+            <path d="M32 10h10v10"/>
+          </svg>
+          <h3>Inversiones en Argentina y exterior</h3>
+          <p>Selección y armado de estrategias de inversión en instrumentos locales e internacionales, adaptadas a tu perfil de riesgo y horizonte de tiempo.</p>
+        </div>
+
+        <div class="service-card">
+          <span class="num">03</span>
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="24" cy="24" r="17"/>
+            <path d="M24 15v9l7 4"/>
+          </svg>
+          <h3>Armado y seguimiento de cartera</h3>
+          <p>Construcción de una cartera diversificada y monitoreo permanente de su desempeño, con ajustes periódicos según el contexto del mercado.</p>
+        </div>
+
+        <div class="service-card">
+          <span class="num">04</span>
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8 40V22l14-10 14 10v18"/>
+            <path d="M18 40V28h8v12"/>
+          </svg>
+          <h3>Consultoría financiera para Pymes</h3>
+          <p>Análisis financiero externo para pequeñas y medianas empresas: flujo de caja, estructura de costos, financiamiento y toma de decisiones estratégicas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE ELEGIRME -->
+  <section id="elegirme">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Por qué elegirme</span>
+        <h2>Un asesor, no un vendedor de productos financieros.</h2>
+      </div>
+    </div>
+
+    <div class="reasons reveal">
+      <div class="reason-card">
+        <svg class="reason-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M24 6 8 13v10c0 11 7 17 16 19 9-2 16-8 16-19V13Z"/>
+          <path d="M17 24l5 5 10-11"/>
+        </svg>
+        <h3>Independencia real</h3>
+        <p>No trabajo para un banco ni cobro comisiones por colocar productos financieros específicos. Mis recomendaciones responden únicamente a tus objetivos.</p>
+      </div>
+
+      <div class="reason-card">
+        <svg class="reason-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="24" cy="16" r="7"/>
+          <path d="M10 42c0-9 6-15 14-15s14 6 14 15"/>
+        </svg>
+        <h3>Trato personalizado</h3>
+        <p>Trabajo con una cartera acotada de clientes para poder dedicar tiempo real a cada caso, con seguimiento cercano y comunicación directa conmigo.</p>
+      </div>
+
+      <div class="reason-card">
+        <svg class="reason-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 38 16 24 24 30 42 8"/>
+          <path d="M42 8v10M42 8H32"/>
+        </svg>
+        <h3>Experiencia en banca y mercados</h3>
+        <p>12 años de trayectoria formado en Banco Galicia me permiten combinar rigor técnico con una lectura actualizada del contexto económico argentino e internacional.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section-alt">
+    <div class="wrap">
+      <div class="contact-panel reveal">
+        <div class="contact-grid">
+          <div>
+            <span class="eyebrow" style="color:#8fa0ff;">Empecemos</span>
+            <h2 class="serif">Hablemos de tu situación financiera, sin costo ni compromiso.</h2>
+            <p class="lead">Coordiná una primera consulta por WhatsApp o email y te cuento cómo puedo ayudarte a ordenar tus finanzas o las de tu empresa.</p>
+
+            <div class="contact-actions">
+              <a class="contact-btn" href="https://wa.me/54955554444" target="_blank" rel="noopener">
+                <svg class="ico" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.5.7 4.8 1.9 6.8L3 29l6.9-2.2c1.9 1.1 4.1 1.7 6.1 1.7 7 0 12.7-5.6 12.7-12.5C28.7 8.6 23 3 16 3zm0 22.7c-2 0-3.9-.5-5.5-1.5l-.4-.2-4.1 1.3 1.3-4-.3-.4a10 10 0 0 1-1.7-5.6c0-5.6 4.7-10.2 10.7-10.2s10.7 4.6 10.7 10.2S22 25.7 16 25.7zm5.9-7.6c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
+                <span>WhatsApp<small>+54 9 55 554-4444</small></span>
+              </a>
+              <a class="contact-btn" href="mailto:martin@herrerafinanzas.com">
+                <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="24" height="18" rx="2"/><path d="M5 9l11 8 11-8"/></svg>
+                <span>Email<small>martin@herrerafinanzas.com</small></span>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-details">
+            <dl>
+              <div>
+                <dt>Asesor</dt>
+                <dd>Martín Herrera</dd>
+              </div>
+              <div>
+                <dt>Especialidad</dt>
+                <dd>Finanzas personales &amp; Pymes</dd>
+              </div>
+              <div>
+                <dt>Ubicación</dt>
+                <dd>Argentina — atención remota y presencial</dd>
+              </div>
+              <div>
+                <dt>Horario de contacto</dt>
+                <dd>Lun. a vie., 9 a 18 h</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <a href="#top" class="brand">
+      <span class="brand-mark">MH</span>
+      <span>Martín Herrera</span>
+    </a>
+    <div class="footer-links">
+      <a href="#trayectoria">Trayectoria</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#elegirme">Por qué elegirme</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <span class="footer-fine">© 2026 Martín Herrera — Asesor Financiero Independiente</span>
+  </div>
+</footer>
+
+<script>
+  // Header shadow on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 8);
+  });
+
+  // Mobile menu toggle
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // Animate hero chart when it enters view
+  const chartSvg = document.getElementById('chartSvg');
+  const chartIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        chartSvg.classList.add('in');
+        chartIo.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  chartIo.observe(chartSvg);
+</script>
+
+</body>
+</html>
